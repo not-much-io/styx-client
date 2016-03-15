@@ -1,0 +1,74 @@
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Raleway', sans-serif;
+}
+
+.main-color {
+    background-color: #383353;
+}
+
+html, body {
+    height: 100%;
+}
+
+#app {
+    height: 100%;
+}
+
+body {
+    margin: 1;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.message1 {
+    font-size: 13px;
+    max-width: 10em;
+    background-color: #706198;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.message2 {
+    font-size: 13px;
+    max-width: 10em;
+    background-color: #474067;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+#wrapping-div {}
+
+#top-bar {
+    border-bottom: 1px solid;
+    border-color: grey;
+}
+
+#bottom-bar {
+    border-top: 1px solid;
+    border-color: grey;
+    color: white;
+}
+
+#contact-name {
+    color: white;
+}
+
+#status {
+    color: grey;
+}
+
+#chat-feed {
+    overflow: auto;
+    height: 590px;
+}
+
+#chat-box {
+    border: 0;
+    outline-width: 0;
+    font-size: 14px;
+    font-family: 'Raleway', sans-serif;
+    color: grey;
+    col: 1;
+}
+
