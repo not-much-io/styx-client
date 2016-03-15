@@ -15,7 +15,7 @@
 (defn chat-box []
   (let [messages (shuffle (flatten (repeat 4 ["Lorem impsum dolor sit amper consecreteur adipiscing"
                                               "lore impsum dolor"])))]
-    [:div#chat-feed.overflow
+    [:div#chat-feed.clearfix
      (map-indexed
        (fn [idx msg]
          (if (even? idx)
