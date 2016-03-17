@@ -8,28 +8,50 @@ html, body {
 }
 
 body {
-    margin-bottom: 0;
-    margin-top: 0;
+    margin: 0;
 }
 
 .main-color {
-    background-color: #383353;
+    /* Lilac: background-color: #383353;*/
+    background-color: #272C30;
+}
+
+.secondary-color1 {
+    /* Lilac: background-color: #706198;*/
+    background-color: #586166;
+}
+
+.c-s1-text {
+    color: #586166;
+}
+
+.secondary-color2 {
+    /* Lilac: background-color: #474067;*/
+    background-color: #00AEDB;
+}
+
+.c-s2-text {
+    color: #00AEDB;
+}
+
+.main-text {
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+.secondary-text {
+    color: grey;
+    font-family: 'Raleway', sans-serif;
 }
 
 .message1 {
     font-size: 0.75em;
     max-width: 10em;
-    background-color: #706198;
-    color: white;
-    font-family: 'Raleway', sans-serif;
 }
 
 .message2 {
     font-size: 0.75em;
     max-width: 10em;
-    background-color: #474067;
-    color: white;
-    font-family: 'Raleway', sans-serif;
 }
 
 .profile-picture {
@@ -69,7 +91,6 @@ body {
     border: 0;
     outline-width: 0;
     font-size: 14px;
-    font-family: 'Raleway', sans-serif;
-    color: grey;
+    width: 100%;
 }
 
