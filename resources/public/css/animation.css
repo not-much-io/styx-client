@@ -1,0 +1,17 @@
+.feed-enter {
+    height: 0;
+    width: 0;
+    transition: width 0.50s ease-in-out, height 0.50s ease-in-out;
+}
+
+.feed-leave {
+    height: 0;
+    width: 0;
+    transition: width 0.50s ease-in-out, height 0.50s ease-in-out;
+}
+
+.feed-enter-active {
+    height: 2em;
+    width: 100%;
+    opacity: 1;
+}

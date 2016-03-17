@@ -1,7 +1,5 @@
-(ns styx-client.db)
+(ns styx-client.db
+  (:require [styx-client.test-data :refer [get-random-message]]))
 
 (def default-db
-  {:messages (shuffle
-               (flatten
-                 (repeat 10 ["Lorem impsum dolor sit amper consecreteur adipiscing"
-                             "lore impsum dolor"])))})
+  {:messages [(get-random-message)]})
