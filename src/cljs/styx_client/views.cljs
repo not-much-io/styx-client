@@ -2,11 +2,11 @@
   (:require [re-frame.core :as re-frame]
             [goog.dom :as gdom]))
 
-(def ctg (reagent.core/adapt-react-class js/React.addons.CSSTransitionGroup))
+(def css-trans-group (reagent.core/adapt-react-class js/React.addons.CSSTransitionGroup))
 
 
 (defn top-bar []
-  [:div#top-bar.flex.main-color.border-bottom.card-3
+  [:div#top-bar.flex.main-color.border-bottom.card-4
    [:img.circle.m1.profile-picture.card-2 {:src    "https://avatars.slack-edge.com/2015-05-30/5147732825_d04b8e601de9c90bed00_192.jpg"
                                            :height 55
                                            :width  55}]
@@ -28,48 +28,51 @@
                              bottom-bar-height)
                           "px")))
              16)
-        _   (js/setInterval
-              #(let [chat-feed (gdom/getElement "chat-feed")]
-                (set! (.-scrollTop chat-feed)
-                      (.-scrollHeight chat-feed)))
-              16)
+        _ (comment (js/setInterval
+                     #(let [chat-feed (gdom/getElement "chat-feed")
+                            scroll-top (.-scrollTop chat-feed)
+                            scroll-height (.-scrollHeight chat-feed)]
+                       (if (not= scroll-height scroll-top)
+                         (set! (.-scrollTop chat-feed)
+                               (inc scroll-top))))
+                     25))
         from-msg (fn [i m]
+                   ^{:key i}
                    [:div.flex.flex-wrap.ml2.mt1
-                    ^{:key i}
                     [:div.col-12
-                     [:div.message1.secondary-color1.main-text.p2.rounded.card-2 m]]
+                     [:div.message1.secondary-color1.main-text.p2.rounded.card-4 m]]
                     [:div.col-12
                      [:h6.secondary-text.my1 "Sent 9.15"]]])
         user-msg   (fn [i m]
+                     ^{:key i}
                      [:div.flex.flex-wrap.mr2.mt1
-                      ^{:key i}
                       [:div.col-12
-                       [:div.message2.secondary-color2.main-text.p2.rounded.ml-auto.card-2 m]]
+                       [:div.message2.secondary-color2.main-text.p2.rounded.ml-auto.card-4 m]]
                       [:div.col-12
                        [:h6.secondary-text.my1.right-align "Sent 9.15"]]])]
     [:div#chat-feed
-     [ctg {:transition-name "feed"}
+     [css-trans-group {:transition-name "feed"}
       (map-indexed
         (fn [idx msg]
           (if (even? idx)
             (from-msg idx msg)
             (user-msg idx msg)))
-        messages)]]))
+        (reverse messages))]]))
 
 (defn message-box []
   [:div#bottom-bar.border-top.main-color
    [:div.flex
     [:div.col-1
-     [:i.material-icons.m2.c-s2-text "attachment"]]
+     [:i.material-icons.m2.c-s2-text.circle "attachment"]]
     [:div.col-7
      [:textarea#chat-box.secondary-text.main-color.m2
       {:rows 1}
       "Type your message..."]]
     [:div.col-1]
     [:div.col-1
-     [:i.material-icons.m2.c-s2-text "insert_emoticon"]]
+     [:i.material-icons.m2.c-s2-text.circle "insert_emoticon"]]
     [:div.col-1
-     [:i.material-icons.m2.m2.c-s2-text "send"]]
+     [:i.material-icons.m2.m2.c-s2-text.circle "send"]]
     [:div.col-1]]])
 
 (defn main-panel []

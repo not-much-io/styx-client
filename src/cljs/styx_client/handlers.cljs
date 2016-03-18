@@ -13,6 +13,6 @@
   (fn [db msg]
     (update-in db [:messages] #(conj % msg))))
 
-(js/setInterval
-  #(re-frame/dispatch [:add-fake-msg (get-random-message)])
-  9000)
+(comment (js/setInterval
+           #(re-frame/dispatch [:add-fake-msg (get-random-message)])
+           3000))

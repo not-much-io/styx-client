@@ -2,4 +2,4 @@
   (:require [styx-client.test-data :refer [get-random-message]]))
 
 (def default-db
-  {:messages [(get-random-message)]})
+  {:messages (take 3 (get-random-message))})

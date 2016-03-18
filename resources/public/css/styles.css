@@ -45,11 +45,13 @@ body {
 }
 
 .message1 {
+    opacity: 1;
     font-size: 0.75em;
     max-width: 10em;
 }
 
 .message2 {
+    opacity: 1;
     font-size: 0.75em;
     max-width: 10em;
 }
@@ -84,7 +86,8 @@ body {
 }
 
 #chat-feed {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 #chat-box {
@@ -94,3 +97,8 @@ body {
     width: 100%;
 }
 
+/*
+i:hover {
+    background-color: #586166;
+}
+*/
