@@ -1,20 +1,11 @@
 
-.feed-enter {
-    /*opacity: 0;*/
-}
-
-.feed-enter-active {
-    /*opacity: 1;*/
-}
-
 .feed-enter:nth-child(even) {
     transform: translateX(200px);
 }
 
 .feed-enter-active:nth-child(even) {
-    /*opacity: 1;*/
     transform: translateX(0);
-    transition: transform .4s ease-out; ,/* opacity .5s; */
+    transition: transform .4s ease-out;
 }
 
 .feed-enter:nth-child(odd) {
@@ -22,9 +13,8 @@
 }
 
 .feed-enter-active:nth-child(odd) {
-    /*opacity: 1;*/
     transform: translateX(0);
-    transition: transform .4s ease-out; /* opacity .5s; */
+    transition: transform .4s ease-out;
 }
 
 .feed-leave {}
@@ -34,3 +24,20 @@
 .feed-appear {}
 
 .feed-appear-active {}
+
+.view-enter {
+    transform: translateX(-150%);
+}
+
+.view-enter-active {
+    transform: translateX(0);
+    transition: transform .3s linear;
+}
+
+.view-leave {
+}
+
+.view-leave-active {
+    transform: translateX(150%);
+    transition: transform .3s linear;
+}
