@@ -5,7 +5,12 @@
 (re-frame/register-sub
  :messages
  (fn [db]
-   (reaction (:messages @db))))
+   (let [message-components (:messages @db)
+         _ (println "1 >>>" message-components)
+         messages (map #(into {} [%1 %2]) message-components)
+         _ (println "2 >>>" messages)
+         ]
+     (reaction messages))))
 
 (re-frame/register-sub
   :auto-scroll-on

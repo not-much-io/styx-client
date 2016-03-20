@@ -6,9 +6,10 @@
 (defn fit-vertical
   "Fits a div between a top and bottom div inside the same parent div."
   [to-fit-id top-id bottom-id parent-id]
-  (let [heights (map #(.-offsetHeight (gdom/getElement %))
-                     [parent-id top-id bottom-id])
-        fit-height (apply - heights)]
+  (let [heights     (map #(.-offsetHeight (gdom/getElement %))
+                         [parent-id top-id bottom-id])
+        fit-height  (apply - heights)
+        ]
     (set! (-> to-fit-id
               (gdom/getElement)
               (.-style)

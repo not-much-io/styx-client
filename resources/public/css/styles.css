@@ -1,0 +1,147 @@
+
+/* ==================== Elements ==================== */
+
+* {
+    color: white;
+    font-family: 'Raleway', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* ==================== IDs ==================== */
+
+#app {
+    height: 100%;
+}
+
+#chat-feed {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* ==================== Classes  ==================== */
+
+/* ==================== WrapperClasses ==================== */
+/* Classes that just wrap 1 value. */
+
+.bg-color1 {
+    background-color: #272C30;
+}
+
+.bg-color2 {
+    background-color: #586166;
+}
+
+.bg-color3 {
+    background-color: #00AEDB;
+}
+
+.text-color1 {
+    color: #586166;
+}
+
+.text-color2 {
+    color: #00AEDB;
+}
+
+.border-color1 {
+    border-color: grey;
+}
+
+.border-color2 {
+    border-color: #00AEDB;
+}
+
+.text-secondary {
+    color: grey;
+}
+
+/* ==================== Component classes ==================== */
+
+.message-in {
+    font-size: 0.75em;
+    max-width: 20em;
+}
+
+.message-out {
+    font-size: 0.75em;
+    max-width: 20em;
+}
+
+.dp-size {
+    height: 4em;
+    width:  4em;
+}
+
+.slim-text-box {
+    border: 0;
+    outline-width: 0;
+    font-size: 14px;
+    width: 90%;
+}
+
+.shadow1 {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.2s ease-in-out;
+}
+
+.shadow1:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.shadow2 {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.shadow3 {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.shadow4 {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.shadow5 {
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+/* ==================== Animation ==================== */
+
+.feed-enter:nth-child(even) {
+    transform: translateX(200px);
+}
+
+.feed-enter-active:nth-child(even) {
+    transform: translateX(0);
+    transition: transform .4s ease-out;
+}
+
+.feed-enter:nth-child(odd) {
+    transform: translateX(-200px);
+}
+
+.feed-enter-active:nth-child(odd) {
+    transform: translateX(0);
+    transition: transform .4s ease-out;
+}
+
+.view-enter {
+    opacity: 0;
+    transform: translateX(-125%);
+}
+
+.view-enter-active {
+    transform: translateX(0);
+    opacity: 1;
+    transition: transform .5s ease-out, opacity .25s ease-out;
+}
+
+.view-leave-active {
+    transform: translateX(125%);
+    opacity: 0;
+    transition: transform .5s ease-out, opacity .25s ease-out;
+}

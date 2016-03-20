@@ -15,7 +15,7 @@
 
 (re-frame/register-handler
   :add-fake-msg
-  (fn [db msg]
+  (fn [db [_ msg]]
     (update-in db [:messages] #(conj % msg))))
 
 (re-frame/register-handler
@@ -35,6 +35,6 @@
   (fn [db [_ view]]
     (assoc db :open-view view)))
 
-(comment (defonce _ (js/setInterval
-                      #(re-frame/dispatch [:add-fake-msg (get-random-message)])
-                      5000)))
+(defonce _ (js/setInterval
+             #(re-frame/dispatch [:add-fake-msg (get-random-message)])
+             5000))

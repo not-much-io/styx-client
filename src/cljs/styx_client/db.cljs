@@ -2,7 +2,7 @@
   (:require [styx-client.test-data :refer [get-random-message]]))
 
 (def default-db
-  {:messages        (take 3 (get-random-message))
+  {:messages        []
    :loading?        true
    :open-view       :chat
    :chat-feed-state {:auto-scroll-on true
