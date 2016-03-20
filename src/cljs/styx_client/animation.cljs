@@ -8,8 +8,7 @@
   [to-fit-id top-id bottom-id parent-id]
   (let [heights     (map #(.-offsetHeight (gdom/getElement %))
                          [parent-id top-id bottom-id])
-        fit-height  (apply - heights)
-        ]
+        fit-height  (apply - heights)]
     (set! (-> to-fit-id
               (gdom/getElement)
               (.-style)
