@@ -4,3 +4,5 @@
 
 (deftest test-set-loading?
   (is (= 1 1)))
+
+(run-tests)
