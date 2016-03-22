@@ -2,8 +2,7 @@
   (:require [styx-client.test-data :refer [get-random-message]]))
 
 (def default-db
-  {:messages        []
+  {:messages        (for [i (range 5)]
+                      (get-random-message))
    :loading?        true
-   :open-view       :chat
-   :chat-feed-state {:auto-scroll-on true
-                     :auto-scroll-id nil}})
+   :open-view       :chat})

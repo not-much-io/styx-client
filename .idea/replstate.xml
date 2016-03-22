@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ReplState" timestamp="1458681272094">{:repl-history {:ide [], :local [], :remote []}}</component>
+  <component name="ReplState" timestamp="1458689592923">{:repl-history {:ide [], :local [&quot;(run-tests 'test)&quot; &quot;(run-tests 'tests.event-handler-tests)&quot; &quot;(+ 1 1)&quot; &quot;(run-tests)&quot;], :remote []}}</component>
 </project>

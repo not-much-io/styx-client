@@ -3,8 +3,8 @@
             [styx-client.views.chat-feed :refer [chat-feed]]
             [styx-client.views.bottom-bar :refer [bottom-bar]]))
 
-(defn chat [messages]
+(defn chat []
   [:div
    [app-bar]
-   [chat-feed messages]
+   [chat-feed]
    [bottom-bar]])

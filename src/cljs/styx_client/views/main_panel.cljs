@@ -5,15 +5,14 @@
             [styx-client.animation :refer [css-trans-group]]))
 
 (defn main-panel []
-  (let [messages  (re-frame/subscribe [:sub-to [:messages]])
-        open-view (re-frame/subscribe [:sub-to [:open-view]])]
+  (let [open-view (re-frame/subscribe [:sub-to [:open-view]])]
     (fn []
       [:div#wrapping-div.color1
        [css-trans-group {:transition-name "view"}
         (if (= @open-view :chat)
           ^{:key "chat-view"}
           [:div
-           [chat @messages]]
+           [chat]]
           ^{:key "contact-list"}
           [:div
            [contact-list]])]])))
