@@ -10,11 +10,11 @@
   :min-lein-version "2.5.3"
 
   :source-paths ["src/clj"
-                 "dev-resources/scripts"]
+                 "scripts"]
 
-  :plugins [[lein-cljsbuild "1.1.1"]
+  :plugins [[lein-cljsbuild "1.1.1"]]
             ;[lein-figwheel "0.5.0-2"]
-            ]
+
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"]
 
