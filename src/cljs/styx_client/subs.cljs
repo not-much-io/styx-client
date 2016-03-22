@@ -2,6 +2,15 @@
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [re-frame.core :as re-frame]))
 
+(defn sub-to-handler
+  [db v]
+  (get-in db v))
+
+(re-frame/register-sub
+  :sub-to
+  (fn [db [_ keys]]
+    (reaction (sub-to-handler @db keys))))
+
 (re-frame/register-sub
   :messages
   (fn [db]

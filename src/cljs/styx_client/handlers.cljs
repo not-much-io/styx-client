@@ -35,6 +35,6 @@
   (fn [db [_ view]]
     (assoc db :open-view view)))
 
-(defonce _ (js/setInterval
-             #(re-frame/dispatch [:add-fake-msg (get-random-message)])
-             5000))
+(comment (defonce _ (js/setInterval
+                      #(re-frame/dispatch [:add-fake-msg (get-random-message)])
+                      5000)))

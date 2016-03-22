@@ -5,8 +5,8 @@
             [styx-client.animation :refer [css-trans-group]]))
 
 (defn main-panel []
-  (let [messages  (re-frame/subscribe [:messages])
-        open-view (re-frame/subscribe [:open-view])]
+  (let [messages  (re-frame/subscribe [:sub-to [:messages]])
+        open-view (re-frame/subscribe [:sub-to [:open-view]])]
     (fn []
       [:div#wrapping-div.color1
        [css-trans-group {:transition-name "view"}
