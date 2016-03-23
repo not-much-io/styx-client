@@ -2,11 +2,11 @@
 
 (defn attachment-button
   []
-  [:i.material-icons.text-color2.mx1.circle "attachment"])
+  [:i.material-icons.text-color2.circle "attachment"])
 
 (defn message-box
   []
-  [:textarea.slim-text-box.bg-color1.mx1
+  [:textarea.slim-text-box.bg-color1
    {:defaultValue "Type your message..."
     :rows         1}])
 
@@ -21,12 +21,12 @@
 (defn bottom-bar
   []
   [:div#bottom-bar.bg-color1.border-top.border-color1
-   [:div.flex.items-center.py1
-    [:div.col-1
+   [:div.flex.items-center.p1
+    [:div.m1
      [attachment-button]]
-    [:div.col-9
+    [:div.flex-auto
      [message-box]]
-    [:div.col-1
+    [:div.m1
      [emoticon-button]]
-    [:div.col-1
+    [:div.m1
      [send-button]]]])

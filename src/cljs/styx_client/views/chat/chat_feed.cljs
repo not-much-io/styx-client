@@ -2,7 +2,9 @@
   (:require [styx-client.animation :as anim]
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
-            [goog.dom :as gdom]))
+            [goog.dom :as gdom]
+            [goog.fx.dom :as gfx-dom]
+            [styx-client.utils :as utils]))
 
 (defn msg-in [m]
   [:div.msg-in
@@ -22,53 +24,43 @@
      [:div.col-12
       [:h6.text-secondary.my1.right-align "Sent 9.15"]]]]])
 
-(defonce fit-feed
-         ; Make chat feed take remaining height between top bar and bottom bar
+(defonce _
+         ;; Make chat feed take remaining height between top bar and bottom bar.
+         ;; HACK: There is probably a better, less CPU intensive way to do this (CSS?).
          (js/setInterval
            (fn []
-             (let [mounted (gdom/getElement "bottom-bar")]
-               (when mounted
-                 ; Elements are mounted to DOM, bottom-bar mounted lastly
-                 (let [heights    (map #(.-offsetHeight (gdom/getElement %))
-                                       ["app" "top-bar" "bottom-bar"])
-                       fit-height (apply - heights)]
-                   (set! (-> "chat-feed"
-                             (gdom/getElement)
-                             (.-style)
-                             (.-height))
-                         (str fit-height "px"))))))
+             (when (gdom/getElement "wrapping-div")         ; wrapping-div and thus its contents are mounted to DOM
+               (set! (-> "chat-feed"
+                         (gdom/getElement)
+                         (.-style)
+                         (.-height))
+                     (as-> ["app" "top-bar" "bottom-bar"] x
+                           (map gdom/getElement x)
+                           (map #(.-offsetHeight %) x)
+                           (apply - x)
+                           (str x "px")))))                 ; available height between top and bottom bar
            16))
 
-(defn start-scroll-interval
-  []
-  (let [interval-id (js/setInterval
-                      #(anim/scroll-down-by "chat-feed" 5)
-                      16)]
-    (re-frame/dispatch [:set-auto-scroll-id interval-id])))
-
-(defn stop-scroll-interval
-  [auto-scroll-id]
-  (js/clearInterval auto-scroll-id)
-  (re-frame/dispatch [:set-auto-scroll-id nil]))
-
-(defn- scroll-state-handler
-  [auto-scroll-on auto-scroll-id]
-  (if auto-scroll-on
-    (when-not auto-scroll-id
-      ; Auto scroll on, but no interval running -> start interval
-      (start-scroll-interval))
-    (when auto-scroll-id
-      ; Auto scroll off, but interval running -> stop interval
-      (stop-scroll-interval auto-scroll-id))))
-
+(defn scroll! [el start end time]
+  "Plays a animation that will scroll an element from A to B.
+  Start and End should be 2 dimensional arrays. [left, top]"
+  (.play (gfx-dom/Scroll. el (clj->js start) (clj->js end) time)))
 
 (defn chat-feed []
   (let [messages      (re-frame/subscribe [:sub-to [:messages]])
-        should-scroll (reagent/atom true)]
+        should-scroll (reagent/atom false)]
     (fn []
-      [:div#chat-feed {:on-click  (fn []
-                                    (reset! should-scroll
-                                            (not @should-scroll)))}
+      (when @should-scroll
+        (as-> "chat-feed" feed
+              (gdom/getElement feed)
+              (scroll! feed
+                       [0 (.-scrollTop feed)]
+                       [0 (.-scrollHeight feed)]
+                       300)))
+      [:div#chat-feed
+       ;; FIXME: handler-fn returns an Object not a fn as it should. (?)
+       #_ {:on-click (utils/handler-fn
+                       (reset! should-scroll (not @should-scroll)))}
        [anim/css-trans-group {:transition-name "feed"}
         (for [msg (reverse @messages)]
           (if (= :out (:in-or-out? msg))
