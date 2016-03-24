@@ -6,9 +6,12 @@
             [goog.fx.dom :as gfx-dom])
   (:require-macros [styx-client.macros :as macros]))
 
+;; REVIEW: Is this a good way to do this?
+(def id_chat_feed "chat-feed")
+
 (defn msg-in [k m]
-  ;; HACK: Simplify markup
   ^{:key k}
+  ;; HACK: Simplify markup
   [:div.msg-in
    [:div.ml2.mt1
     [:div.flex.flex-wrap
@@ -18,8 +21,8 @@
       [:h6.text-secondary.my1 "Sent 9.15"]]]]])
 
 (defn msg-out [k m]
-  ;; HACK: Simplify markup
   ^{:key k}
+  ;; HACK: Simplify markup
   [:div.msg-out
    [:div.mr2.mt1
     [:div.flex.flex-wrap
@@ -34,7 +37,7 @@
          (js/setInterval
            (fn []
              (when (gdom/getElement "bottom-bar")           ; bottom-bar and thus the neccesary comp. are mounted
-               (set! (-> "chat-feed"
+               (set! (-> id_chat_feed
                          gdom/getElement
                          .-style
                          .-height)
@@ -50,29 +53,48 @@
   Start and End should be 2 dimensional arrays. [left, top]"
   (.play (gfx-dom/Scroll. el (clj->js start) (clj->js end) time)))
 
+(defn scrolled-to-bottom? [id]
+  ;; TODO: add tolerance
+  (let [el (gdom/getElement id)]
+    (= (.-scrollTop el)
+       (- (.-scrollHeight el)
+          (.-offsetHeight el)))))
+
 (defn- handle-scroll
   [should-scroll]
   (when @should-scroll
-    (as-> "chat-feed" feed
+    (as-> id_chat_feed feed
           (gdom/getElement feed)
           (scroll! feed
                    [0 (.-scrollTop feed)]
                    [0 (.-scrollHeight feed)]
-                   300))
-    (swap! should-scroll false)))
+                   500))))
+
+(defn auto-scroll-button [scrolled-to-bottom]
+    (if-not @scrolled-to-bottom
+      [:div.border "Scroll!"]
+      [:div]))
 
 (defn chat-feed []
-  (let [messages      (re-frame/subscribe [:sub-to [:messages]])
-        should-scroll (reagent/atom false)]
+  (let [messages           (re-frame/subscribe [:sub-to [:messages]])
+        should-scroll      (reagent/atom false)
+        scrolled-to-bottom (reagent/atom false)]
     (fn []
       (handle-scroll should-scroll)
       [:div#chat-feed
-       {:on-click (macros/handler-fn
-                    (swap! should-scroll not))}
+       {:on-click  (macros/handler-fn
+                     (swap! should-scroll not))
+        :on-scroll (macros/handler-fn
+                     (if (scrolled-to-bottom? id_chat_feed)
+                       (do (reset! should-scroll true)
+                           (reset! scrolled-to-bottom true))
+                       (do (reset! should-scroll false)
+                           (reset! scrolled-to-bottom false))))}
        [anim/css-trans-group {:transition-name "feed"
                               :transition-enter-timeout 5000
                               :transition-leave-timeout 5000}
-        (for [msg (reverse @messages)]
-          (if (= :out (:in-or-out? msg))
-            (msg-out (:key msg) (:msg msg))
-            (msg-in  (:key msg) (:msg msg))))]])))
+        (for [{:keys [in-or-out key msg]} (reverse @messages)]
+          (if (= :out in-or-out)
+            (msg-out key msg)
+            (msg-in  key msg)))]
+       [auto-scroll-button scrolled-to-bottom]])))

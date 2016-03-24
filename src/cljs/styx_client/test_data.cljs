@@ -6,7 +6,12 @@
   (let [text ["Lorem " "ipsum " "dolor " "sit " "amet,
               consectetur " "adipiscing " "elit,
               sed " "do " "eiusmod " "tempor " "incididunt " "ut " "labore "]
-        msg (apply str (take (rand-int (count text)) (shuffle text)))
+        msg (apply str
+                   (take
+                         (inc
+                           (rand-int
+                             (dec (count text))))
+                         (shuffle text)))
         in-or-out? (fn []
                      (if (even? (rand-int 100))
                        :in
