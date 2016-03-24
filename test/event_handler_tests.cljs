@@ -1,4 +1,4 @@
-(ns tests.event-handler-tests
+(ns test.event-handler-tests
   (:require [cljs.test :refer-macros [deftest is testing run-tests]]
             [re-frame.core :as re-frame]))
 

@@ -3,10 +3,12 @@
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
             [goog.dom :as gdom]
-            [goog.fx.dom :as gfx-dom]
-            [styx-client.utils :as utils]))
+            [goog.fx.dom :as gfx-dom])
+  (:require-macros [styx-client.macros :as macros]))
 
-(defn msg-in [m]
+(defn msg-in [k m]
+  ;; HACK: Simplify markup
+  ^{:key k}
   [:div.msg-in
    [:div.ml2.mt1
     [:div.flex.flex-wrap
@@ -15,7 +17,9 @@
      [:div.col-12
       [:h6.text-secondary.my1 "Sent 9.15"]]]]])
 
-(defn msg-out [m]
+(defn msg-out [k m]
+  ;; HACK: Simplify markup
+  ^{:key k}
   [:div.msg-out
    [:div.mr2.mt1
     [:div.flex.flex-wrap
@@ -29,11 +33,11 @@
          ;; HACK: There is probably a better, less CPU intensive way to do this (CSS?).
          (js/setInterval
            (fn []
-             (when (gdom/getElement "wrapping-div")         ; wrapping-div and thus its contents are mounted to DOM
+             (when (gdom/getElement "bottom-bar")           ; bottom-bar and thus the neccesary comp. are mounted
                (set! (-> "chat-feed"
-                         (gdom/getElement)
-                         (.-style)
-                         (.-height))
+                         gdom/getElement
+                         .-style
+                         .-height)
                      (as-> ["app" "top-bar" "bottom-bar"] x
                            (map gdom/getElement x)
                            (map #(.-offsetHeight %) x)
@@ -46,23 +50,29 @@
   Start and End should be 2 dimensional arrays. [left, top]"
   (.play (gfx-dom/Scroll. el (clj->js start) (clj->js end) time)))
 
+(defn- handle-scroll
+  [should-scroll]
+  (when @should-scroll
+    (as-> "chat-feed" feed
+          (gdom/getElement feed)
+          (scroll! feed
+                   [0 (.-scrollTop feed)]
+                   [0 (.-scrollHeight feed)]
+                   300))
+    (swap! should-scroll false)))
+
 (defn chat-feed []
   (let [messages      (re-frame/subscribe [:sub-to [:messages]])
         should-scroll (reagent/atom false)]
     (fn []
-      (when @should-scroll
-        (as-> "chat-feed" feed
-              (gdom/getElement feed)
-              (scroll! feed
-                       [0 (.-scrollTop feed)]
-                       [0 (.-scrollHeight feed)]
-                       300)))
+      (handle-scroll should-scroll)
       [:div#chat-feed
-       ;; FIXME: handler-fn returns an Object not a fn as it should. (?)
-       #_ {:on-click (utils/handler-fn
-                       (reset! should-scroll (not @should-scroll)))}
-       [anim/css-trans-group {:transition-name "feed"}
+       {:on-click (macros/handler-fn
+                    (swap! should-scroll not))}
+       [anim/css-trans-group {:transition-name "feed"
+                              :transition-enter-timeout 5000
+                              :transition-leave-timeout 5000}
         (for [msg (reverse @messages)]
           (if (= :out (:in-or-out? msg))
-            (msg-out (:msg msg))
-            (msg-in (:msg msg))))]])))
+            (msg-out (:key msg) (:msg msg))
+            (msg-in  (:key msg) (:msg msg))))]])))

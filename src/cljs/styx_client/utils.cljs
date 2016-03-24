@@ -1,13 +1,18 @@
 (ns styx-client.utils)
 
-(defmacro handler-fn
-  "https://github.com/Day8/re-frame/wiki/Beware-Returning-False"
-  ([& body]
-   `(fn [~'event] ~@body nil)))  ;; force return nil
+(defn handler-fn
+  [f]
+  ;; FIXME:  https://github.com/Day8/re-frame/wiki/Beware-Returning-False
+  ;;         But I am trying to avoid usign a macro. Getting "not a function" in ratom..
+  (fn [event]
+    (let [res (f)]
+      (if (= (type res) js/Boolean)
+        nil
+        res))))
 
 (defonce lastId (atom -1))
 
 (defn get-random-key
   []
-  (-> lastId
-      (swap! inc)))
+  ;; HACK: This is just for temporary use in a testing environment.
+  (swap! lastId inc))

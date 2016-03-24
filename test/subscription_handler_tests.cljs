@@ -1,4 +1,4 @@
-(ns tests.subscription-handler-tests
+(ns test.subscription-handler-tests
   (:require [cljs.test :refer-macros [deftest is testing run-tests]]
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
