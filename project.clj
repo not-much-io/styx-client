@@ -1,10 +1,10 @@
 (defproject styx-client "0.1.0-SNAPSHOT"
-  :dependencies [[org.clojure/clojure "1.7.0"]
-                 [org.clojure/clojurescript "1.7.170"]
+  :dependencies [[org.clojure/clojure "1.8.0"]
+                 [org.clojure/clojurescript "1.8.34"]
                  [figwheel-sidecar "0.5.0"]
-                 [reagent "0.5.1" :exclusions [cljsjs/react]]
-                 [cljsjs/react-with-addons "0.13.3-0"]
-                 [re-frame "0.6.0"]
+                 [reagent "0.6.0-alpha" :exclusions [cljsjs/react]]
+                 [cljsjs/react-with-addons "0.14.7-0"]
+                 [re-frame "0.7.0"]
                  [prismatic/schema "1.0.5"]]
 
   :min-lein-version "2.5.3"
