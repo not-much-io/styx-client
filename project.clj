@@ -1,6 +1,6 @@
 (defproject styx-client "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.8.34"]
+                 [org.clojure/clojurescript "1.7.228"]
                  [figwheel-sidecar "0.5.0"]
                  [reagent "0.6.0-alpha" :exclusions [cljsjs/react]]
                  [cljsjs/react-with-addons "0.14.7-0"]

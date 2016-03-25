@@ -1,11 +1,11 @@
-(ns styx-client.views.app-bar
+(ns styx-client.chat.views.app-bar
   (:require [re-frame.core :as re-frame]))
+
+(def id_top_bar "top-bar")
 
 (defn- nav-button
   []
-  [:div {:on-click #(do
-                     (re-frame/dispatch [:set-view :other])
-                     (re-frame/dispatch [:set-auto-scroll false]))}
+  [:div {:on-click #(re-frame/dispatch [:set-view :other])}
    [:i.material-icons.m1.text-color2
     "chevron_left"]])
 

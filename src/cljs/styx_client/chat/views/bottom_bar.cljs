@@ -1,4 +1,6 @@
-(ns styx-client.views.bottom-bar)
+(ns styx-client.chat.views.bottom-bar)
+
+(def id_bottom_bar "bottom-bar")
 
 (defn attachment-button
   []

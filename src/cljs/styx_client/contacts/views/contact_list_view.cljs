@@ -1,4 +1,4 @@
-(ns styx-client.views.contact-list-view
+(ns styx-client.contacts.views.contact-list-view
   (:require [re-frame.core :as re-frame]))
 
 (defn search-bar []

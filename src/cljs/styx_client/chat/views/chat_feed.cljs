@@ -1,5 +1,7 @@
-(ns styx-client.views.chat-feed
+(ns styx-client.chat.views.chat-feed
   (:require [styx-client.animation :as anim]
+            [styx-client.chat.views.app-bar :refer [id_top_bar]]
+            [styx-client.chat.views.bottom-bar :refer [id_bottom_bar]]
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]
             [goog.dom :as gdom]
@@ -30,16 +32,16 @@
      [:h6.text-secondary.my1.right-align "Sent 9.15"]]]])
 
 (defonce _
-         ;; Make chat feed take remaining height between top bar and bottom bar.
+         ;; Make views feed take remaining height between top bar and bottom bar.
          ;; HACK: There is probably a better, less CPU intensive way to do this (CSS?).
          (js/setInterval
            (fn []
-             (when (gdom/getElement "bottom-bar")           ; bottom-bar and thus the neccesary comp. are mounted
+             (when (gdom/getElement id_bottom_bar)           ; bottom-bar and thus the neccesary comp. are mounted
                (set! (-> id_chat_feed
                          gdom/getElement
                          .-style
                          .-height)
-                     (as-> ["app" "top-bar" "bottom-bar"] x
+                     (as-> ["app" id_top_bar id_bottom_bar] x
                            (map gdom/getElement x)
                            (map #(.-offsetHeight %) x)
                            (apply - x)
@@ -90,7 +92,7 @@
     [:div]))
 
 (defn chat-feed []
-  (let [messages           (re-frame/subscribe [:sub-to [:messages]])
+  (let [messages           (re-frame/subscribe [:messages])
         should-scroll      (reagent/atom false)]
     (fn []
       (handle-scroll should-scroll)

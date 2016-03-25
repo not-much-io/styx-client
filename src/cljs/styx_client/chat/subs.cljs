@@ -1,8 +1,8 @@
-(ns styx-client.subs
+(ns styx-client.chat.subs
   (:require-macros [reagent.ratom :refer [reaction]])
   (:require [re-frame.core :as re-frame]))
 
 (re-frame/register-sub
-  :open-view
+  :messages
   (fn [db]
-    (reaction (:open-view @db))))
+    (reaction (:messages @db))))
