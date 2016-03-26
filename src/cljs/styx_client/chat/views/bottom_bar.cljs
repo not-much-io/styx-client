@@ -1,4 +1,7 @@
-(ns styx-client.chat.views.bottom-bar)
+(ns styx-client.chat.views.bottom-bar
+  (:require [reagent.core :as reagent]
+            [styx-client.animation :refer [css-trans-group]])
+  (:require-macros [styx-client.macros :as macros]))
 
 (def id_bottom_bar "bottom-bar")
 
@@ -8,9 +11,23 @@
 
 (defn message-box
   []
-  [:textarea.slim-text-box.bg-color1
-   {:defaultValue "Type your message..."
-    :rows         1}])
+  ;; TODO: Add focus and blur animation
+  (let [has-focus (reagent/atom false)]
+    (fn []
+      [:div
+       [:textarea.slim-text-box.bg-color1
+        {:placeholder "Write a message.."
+         :rows         1
+         :style        {:width "100%"}
+         :on-focus     (macros/handler-fn
+                         (reset! has-focus true))
+         :on-blur      (macros/handler-fn
+                         (reset! has-focus false))}]
+       (if @has-focus
+         ^{:key "chat-box-bar-active"}
+         [:div.border-bottom.border-color2]
+         ^{:key "chat-box-bar-inactive"}
+         [:div.border-bottom.border-color1])])))
 
 (defn emoticon-button
   []

@@ -12,7 +12,7 @@
 (defn- display-pic
   []
   [:div.m1
-   [:img.dp-size.circle.shadow2
+   [:img.dp-medium.circle.shadow2
     {:src "https://avatars.slack-edge.com/2015-05-30/5147732825_d04b8e601de9c90bed00_192.jpg"}]])
 
 (defn- contact-signature

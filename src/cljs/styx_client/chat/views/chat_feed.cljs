@@ -75,6 +75,7 @@
   ;; FIXME: Fix edge cases with scrolling
   ;;        1) Scrolling up when new message appears
   ;;        2) Auto scroll button not showing after wp dimension change
+  ;;        3) Auto scroll button showing when new message added
   (if-not (and @should-scroll
                (scrolled-to-bottom? id_chat_feed))
     [:div.absolute
@@ -95,15 +96,18 @@
   (let [messages           (re-frame/subscribe [:messages])
         should-scroll      (reagent/atom false)]
     (fn []
+      ;; TODO: Scroll to bottom on initial load.
       (handle-scroll should-scroll)
       [:div#chat-feed
        {:on-scroll (macros/handler-fn
                      (if (scrolled-to-bottom? id_chat_feed)
                        (reset! should-scroll true)
-                       (reset! should-scroll false)))}
+                       (reset! should-scroll false)))
+        :onload    (macros/handler-fn
+                     (reset! should-scroll true))}
        [anim/css-trans-group {:transition-name "feed"
-                              :transition-enter-timeout 5000
-                              :transition-leave-timeout 5000}
+                              :transition-enter-timeout 500
+                              :transition-leave-timeout 500}
         (for [{:keys [in-or-out? key msg]} (reverse @messages)]
           (if (= :out in-or-out?)
             (msg-out key msg)

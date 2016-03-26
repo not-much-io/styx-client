@@ -23,6 +23,11 @@ html, body {
     overflow-x: hidden;
 }
 
+#contact-list {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 /* ==================== Classes  ==================== */
 
 /* ==================== WrapperClasses ==================== */
@@ -60,6 +65,10 @@ html, body {
     color: grey;
 }
 
+.full-width {
+    width: 100%;
+}
+
 /* ==================== Component classes ==================== */
 
 .message-in {
@@ -72,9 +81,14 @@ html, body {
     max-width: 20em;
 }
 
-.dp-size {
+.dp-medium {
     height: 3em;
     width:  3em;
+}
+
+.dp-small {
+    height: 2.5em;
+    width: 2.5em;
 }
 
 .slim-text-box {
@@ -136,3 +150,33 @@ html, body {
     opacity: 0;
     transition: transform .5s ease-out, opacity .25s ease-out;
 }
+
+.input-bar-enter {
+    width: 0;
+}
+
+.input-bar-enter-active {
+    width: 13em;
+    transition: width 1s;
+}
+
+.input-bar-leave {
+    width: 13em;
+}
+
+.input-bar-leave-active {
+    width: 0;
+    transition: width 1s;
+}
+
+/*testing*/
+
+/*!* active state *!*/
+/*#test:focus ~ .highlight {*/
+    /*animation:inputHighlighter 0.3s ease;*/
+/*}*/
+
+/*@keyframes inputHighlighter {*/
+    /*from { background:#5264AE; }*/
+    /*to 	{ width:0; background:transparent; }*/
+/*}*/
