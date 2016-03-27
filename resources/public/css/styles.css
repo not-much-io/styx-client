@@ -95,7 +95,6 @@ html, body {
     border: 0;
     outline-width: 0;
     font-size: 14px;
-    width: 90%;
 }
 
 .shadow1 {
@@ -134,8 +133,10 @@ html, body {
     transition: opacity .2s ease-out;
 }
 
+/* TODO: fix using position absolute or some other method */
+/* TODO: Back and forth animation with even and odd */
 .view-enter {
-    opacity: 0;
+    opacity: .1;
     transform: translateX(-125%);
 }
 
@@ -145,9 +146,11 @@ html, body {
     transition: transform .5s ease-out, opacity .25s ease-out;
 }
 
+.view-leave {}
+
 .view-leave-active {
     transform: translateX(125%);
-    opacity: 0;
+    opacity: .1;
     transition: transform .5s ease-out, opacity .25s ease-out;
 }
 
@@ -168,15 +171,3 @@ html, body {
     width: 0;
     transition: width 1s;
 }
-
-/*testing*/
-
-/*!* active state *!*/
-/*#test:focus ~ .highlight {*/
-    /*animation:inputHighlighter 0.3s ease;*/
-/*}*/
-
-/*@keyframes inputHighlighter {*/
-    /*from { background:#5264AE; }*/
-    /*to 	{ width:0; background:transparent; }*/
-/*}*/

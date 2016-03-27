@@ -1,6 +1,6 @@
 (ns styx-client.chat.handlers
   (:require [re-frame.core :as re-frame]
-            [styx-client.test-data :refer [get-random-message]]))
+            [styx-client.utils :refer [get-random-message]]))
 
 (re-frame/register-handler
   :add-fake-msg

@@ -1,4 +1,6 @@
 (ns styx-client.common-components)
 
 (defn separator []
-  [:div.border-bottom.border-color1 ""])
+  [:div.my1
+   [:div.border-bottom.border-color1
+    {:style {:width "100%"}}]])

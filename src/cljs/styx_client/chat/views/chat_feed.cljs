@@ -1,6 +1,6 @@
 (ns styx-client.chat.views.chat-feed
   (:require [styx-client.animation :as anim]
-            [styx-client.chat.views.app-bar :refer [id_top_bar]]
+            [styx-client.chat.views.top-bar :refer [id_top_bar]]
             [styx-client.chat.views.bottom-bar :refer [id_bottom_bar]]
             [re-frame.core :as re-frame]
             [reagent.core :as reagent]

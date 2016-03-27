@@ -7,14 +7,15 @@
 (defn main-panel []
   (let [open-view (re-frame/subscribe [:open-view])]
     (fn []
-      [:div#wrapping-div.color1
+      [:div#wrapping-div.color1.relative
        [css-trans-group {:transition-name "view"
-                         :transition-enter-timeout 5000
-                         :transition-leave-timeout 5000}
+                         :transition-enter-timeout 500
+                         :transition-leave-timeout 500}
         (if (= @open-view :chat)
           ^{:key "views-view"}
-          [:div
+          [:div.shadow1
+           {:min-width "100vw"}
            [chat]]
           ^{:key "contact-list"}
-          [:div
+          [:div.shadow1
            [contact-list]])]])))

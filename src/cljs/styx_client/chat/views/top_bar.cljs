@@ -1,4 +1,4 @@
-(ns styx-client.chat.views.app-bar
+(ns styx-client.chat.views.top-bar
   (:require [re-frame.core :as re-frame]))
 
 (def id_top_bar "top-bar")
@@ -21,7 +21,7 @@
    [:h3.my0 name]
    [:h5.text-secondary.my0 status]])
 
-(defn app-bar
+(defn top-bar
   []
   [:div#top-bar.bg-color1.border-bottom.border-color1.shadow3
    [:div.flex.items-center
