@@ -6,3 +6,8 @@
   :open-view
   (fn [db]
     (reaction (:open-view @db))))
+
+(re-frame/register-sub
+  :messages
+  (fn [db]
+    (reaction (:messages @db))))

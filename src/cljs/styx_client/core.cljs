@@ -2,10 +2,8 @@
     (:require [reagent.core :as reagent]
               [re-frame.core :as re-frame]
               [styx-client.handlers]
-              [styx-client.chat.handlers]
               [styx-client.subs]
-              [styx-client.chat.subs]
-              [styx-client.main-panel :as views]
+              [styx-client.views :as views]
               [styx-client.config :as config]))
 
 (when config/debug?
